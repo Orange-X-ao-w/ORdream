@@ -200,6 +200,80 @@
     letter-spacing:.12em;
   }
 
+  /* 背景音乐按钮 */
+  .music-btn{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    z-index:9;
+    width:52px;
+    height:52px;
+    display:grid;
+    place-items:center;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:50%;
+    cursor:pointer;
+    color:var(--accent);
+    background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1);
+    transition:transform .18s ease, border-color .2s ease, color .2s ease;
+  }
+  .music-btn:hover{transform:scale(1.07);border-color:rgba(57,197,187,.55);}
+  .music-btn:active{transform:scale(.96);}
+  .music-btn svg{width:24px;height:24px;}
+
+  /* 播放时唱片旋转 */
+  .music-btn.playing .disc{animation:spin 3.2s linear infinite;}
+  .music-btn.playing{
+    color:#04231f;
+    border-color:transparent;
+    background:linear-gradient(135deg, #4ad8cc, #23a89b);
+    box-shadow:0 10px 30px rgba(57,197,187,.42);
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* 暂停时隐藏音符上的斜杠 */
+  .music-btn .slash{display:block;}
+  .music-btn.playing .slash{display:none;}
+
+  /* 播放时的声波条 */
+  .waves{display:none;}
+  .music-btn.playing .waves{display:block;position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(57,197,187,.45);animation:ripple 2s ease-out infinite;}
+  .music-btn.playing .waves:nth-of-type(2){animation-delay:.7s;}
+  @keyframes ripple{
+    0%{transform:scale(1);opacity:.7;}
+    100%{transform:scale(1.45);opacity:0;}
+  }
+
+  /* 首次点击提示 */
+  .music-tip{
+    position:fixed;
+    right:84px;
+    bottom:36px;
+    z-index:9;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(8,23,28,.85);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    color:#c3dedc;
+    font-size:12.5px;
+    white-space:nowrap;
+    opacity:0;
+    transform:translateX(8px);
+    pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .music-tip.show{opacity:1;transform:none;}
+
+  @media (max-width:420px){
+    .music-tip{right:auto;left:20px;bottom:86px;}
+  }
+
   /* 页脚 */
   footer{
     position:relative;
@@ -247,6 +321,21 @@
     <div class="bar-text">CONSTRUCTION IN PROGRESS</div>
   </main>
 
+  <!-- 背景音乐：请将 mp3 与本文件放在同一目录 -->
+  <audio id="bgm" src="月が綺麗ねと言われたい！-柿崎ユウ_.mp3" loop preload="auto"></audio>
+
+  <button class="music-btn" id="musicBtn" type="button" aria-label="播放/暂停背景音乐" title="播放/暂停背景音乐">
+    <span class="waves"></span>
+    <span class="waves"></span>
+    <svg class="disc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 18V6l10-3v12"/>
+      <circle cx="6.5" cy="18" r="2.6"/>
+      <circle cx="16.5" cy="15" r="2.6"/>
+      <line class="slash" x1="3" y1="3" x2="21" y2="21"/>
+    </svg>
+  </button>
+  <div class="music-tip" id="musicTip">点击页面任意处即可播放音乐 ♪</div>
+
   <footer>
     <span class="icp">
       <?xml version="1.0" encoding="UTF-8"?>
@@ -269,8 +358,101 @@
         </a>
     </svg>
     </span>
-    <div class="copyright">©ORDM术力口 Zcloud提供支持</div>
+    <div class="copyright">© ORDM术力口 Zcloud提供支持</div>
   </footer>
+
+<script>
+(function () {
+  var audio    = document.getElementById('bgm');
+  var btn      = document.getElementById('musicBtn');
+  var tip      = document.getElementById('musicTip');
+  var started  = false;   // 音乐是否已成功启动过
+  var tipTimer = null;
+
+  function syncUI() {
+    btn.classList.toggle('playing', !audio.paused && !audio.ended);
+  }
+
+  function showTip(text, autoHide) {
+    tip.textContent = text;
+    tip.classList.add('show');
+    clearTimeout(tipTimer);
+    if (autoHide !== false) {
+      tipTimer = setTimeout(function () { tip.classList.remove('show'); }, 3200);
+    }
+  }
+
+  function tryPlay() {
+    audio.volume = 0.6;
+    var p = audio.play();
+    if (p && typeof p.catch === 'function') {
+      p.then(function () {
+        started = true;
+        syncUI();
+        tip.classList.remove('show');
+        removeOnce();
+      }).catch(function () {
+        // 浏览器拦截了自动播放，等用户首次交互再启动
+        showTip('点击页面任意处即可播放音乐 ♪');
+      });
+    } else {
+      started = true;
+      syncUI();
+      removeOnce();
+    }
+  }
+
+  // 首次交互后自动开始播放
+  function onFirstInteract() {
+    if (started) return;
+    tryPlay();
+  }
+  function removeOnce() {
+    document.removeEventListener('click', onFirstInteract);
+    document.removeEventListener('touchstart', onFirstInteract);
+    document.removeEventListener('keydown', onFirstInteract);
+  }
+  document.addEventListener('click', onFirstInteract);
+  document.addEventListener('touchstart', onFirstInteract);
+  document.addEventListener('keydown', onFirstInteract);
+
+  // 按钮：手动切换播放/暂停
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (audio.paused) {
+      audio.volume = 0.6;
+      audio.play().then(function () {
+        started = true;
+        syncUI();
+        removeOnce();
+        tip.classList.remove('show');
+      }).catch(function () {
+        showTip('音乐文件未找到，请确认 mp3 与网页在同一目录');
+      });
+    } else {
+      audio.pause();
+      syncUI();
+      showTip('已暂停 ♪');
+    }
+  });
+
+  // 自动播放被拦截时，鼠标移到按钮上就提示
+  btn.addEventListener('mouseenter', function () {
+    if (!started) showTip('点击开启背景音乐 ♪');
+  });
+
+  // 音频加载失败（文件名不对 / 文件缺失）时给出提示
+  audio.addEventListener('error', function () {
+    showTip('未找到音乐文件：请确认 mp3 与本网页在同一目录');
+  });
+
+  audio.addEventListener('play', syncUI);
+  audio.addEventListener('pause', syncUI);
+
+  // 页面加载后尝试自动播放（多数浏览器会拦截，交给上面的首次交互兜底）
+  window.addEventListener('load', tryPlay);
+})();
+</script>
 
 </body>
 </html>
