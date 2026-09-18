@@ -170,6 +170,31 @@
   .btn:active{transform:translateY(-1px);}
   .btn svg{width:17px;height:17px;}
 
+  /* 按钮行：主站 + 术力口竞答 */
+  .btn-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:32px;
+  }
+  .btn-row .btn{margin-top:0;}
+
+  /* 次要按钮（描边款） */
+  .btn.ghost{
+    color:var(--accent);
+    background:transparent;
+    border:1px solid var(--line);
+    box-shadow:none;
+  }
+  .btn.ghost:hover{
+    filter:none;
+    border-color:rgba(57,197,187,.65);
+    background:rgba(57,197,187,.10);
+    box-shadow:0 12px 30px rgba(57,197,187,.18);
+  }
+
   /* 施工进度条 */
   .bar{
     margin:34px auto 0;
@@ -289,6 +314,7 @@
 
   @media (max-width:420px){
     .btn{width:100%;justify-content:center;}
+    .btn-row{flex-direction:column;gap:12px;align-items:stretch;}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -310,12 +336,21 @@
 
     <p class="desc">网站正在装修中，请去我的主站看看吧～</p>
 
-    <a class="btn" href="https://orange-6lw.pages.dev" target="_blank" rel="noopener noreferrer">
-      主站
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M7 17 17 7M9 7h8v8"/>
-      </svg>
-    </a>
+    <div class="btn-row">
+      <a class="btn" href="https://orange-6lw.pages.dev" target="_blank" rel="noopener noreferrer">
+        主站
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17 17 7M9 7h8v8"/>
+        </svg>
+      </a>
+
+      <a class="btn ghost" href="https://ordream.pages.dev/1" target="_blank" rel="noopener noreferrer">
+        术力口竞答
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17 17 7M9 7h8v8"/>
+        </svg>
+      </a>
+    </div>
 
     <div class="bar" role="progressbar" aria-label="装修进度"></div>
     <div class="bar-text">CONSTRUCTION IN PROGRESS</div>
@@ -358,7 +393,7 @@
         </a>
     </svg>
     </span>
-    <div class="copyright">© ORDM术力口 Zcloud提供支持</div>
+    <div class="copyright">© ORDM术力口</div>
   </footer>
 
 <script>
