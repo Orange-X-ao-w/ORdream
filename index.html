@@ -6,11 +6,12 @@
 <meta name="description" content="ORDM术力口 —— 网站正在装修中，欢迎前往主站。" />
 <title>欢迎光临 ORDM术力口</title>
 
-<!-- 域名统一：非 ordm.de5.net 访问时跳转至主域名 -->
+<!-- 域名统一：非 ordm.de5.net 访问时跳转至主域名（切换旧版时例外） -->
 <script>
 (function () {
   try {
-    if (location.hostname !== 'ordm.de5.net') {
+    var stay = /[?&]stay=1/.test(location.search) || sessionStorage.getItem('ordm_stay') === '1';
+    if (!stay && location.hostname !== 'ordm.de5.net') {
       location.replace('https://ordm.de5.net/');
     }
   } catch (e) {}
@@ -19,19 +20,16 @@
 
 <style>
   :root{
-    --bg:#08171c;
-    --accent:#39c5bb;
-    --yellow:#fff700;
-    --text:#e9f7f6;
-    --muted:#8fb1b0;
-    --card:rgba(255,255,255,.045);
-    --line:rgba(57,197,187,.22);
+    --bg:#ffffff;
+    --ink:#111111;
+    --text:#1f2328;
+    --muted:#6b7280;
+    --line:#e5e7eb;
+    --soft:#f5f5f7;
+    --accent:#111111;
   }
-
   *{box-sizing:border-box;}
-
   html,body{height:100%;}
-
   body{
     margin:0;
     min-height:100vh;
@@ -40,25 +38,22 @@
     align-items:center;
     justify-content:center;
     gap:34px;
-    padding:48px 20px 36px;
+    padding:64px 20px 36px;
     color:var(--text);
-    background:
-      radial-gradient(900px 620px at 12% 8%, rgba(57,197,187,.18), transparent 62%),
-      radial-gradient(760px 520px at 88% 92%, rgba(255,247,0,.10), transparent 62%),
-      var(--bg);
+    background:var(--bg);
     font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
     position:relative;
     overflow-x:hidden;
   }
 
-  /* 背景网格 */
+  /* 背景网格（浅色） */
   body::before{
     content:"";
     position:fixed;
     inset:0;
     background-image:
-      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
     background-size:46px 46px;
     mask-image:radial-gradient(70% 60% at 50% 45%, #000 40%, transparent 100%);
     -webkit-mask-image:radial-gradient(70% 60% at 50% 45%, #000 40%, transparent 100%);
@@ -66,23 +61,23 @@
     z-index:0;
   }
 
-  /* 漂浮装饰方块 */
+  /* 漂浮装饰方块（浅色） */
   .floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
   .floaters span{
     position:absolute;
     border-radius:10px;
     border:1px solid var(--line);
-    background:linear-gradient(135deg, rgba(57,197,187,.20), rgba(57,197,187,.02));
+    background:linear-gradient(135deg, rgba(0,0,0,.05), rgba(0,0,0,.01));
     animation:drift 16s ease-in-out infinite;
   }
   .floaters span:nth-child(1){width:76px;height:76px;left:6%;top:16%;animation-duration:18s;}
   .floaters span:nth-child(2){width:44px;height:44px;left:88%;top:22%;animation-duration:14s;animation-delay:-4s;}
   .floaters span:nth-child(3){width:100px;height:100px;left:78%;bottom:12%;animation-duration:21s;animation-delay:-8s;}
   .floaters span:nth-child(4){width:34px;height:34px;left:14%;bottom:18%;animation-duration:12s;animation-delay:-2s;}
-  .floaters span:nth-child(5){width:22px;height:22px;left:48%;top:8%;animation-duration:10s;animation-delay:-6s;background:linear-gradient(135deg, rgba(255,247,0,.35), rgba(255,247,0,.02));border-color:rgba(255,247,0,.3);}
+  .floaters span:nth-child(5){width:22px;height:22px;left:48%;top:8%;animation-duration:10s;animation-delay:-6s;}
 
   @keyframes drift{
-    0%,100%{transform:translateY(0) rotate(0deg);opacity:.55;}
+    0%,100%{transform:translateY(0) rotate(0deg);opacity:.5;}
     50%{transform:translateY(-22px) rotate(14deg);opacity:1;}
   }
 
@@ -95,17 +90,11 @@
     text-align:center;
     border:1px solid var(--line);
     border-radius:24px;
-    background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    box-shadow:0 24px 70px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+    background:#ffffff;
+    box-shadow:0 18px 50px rgba(0,0,0,.07);
     animation:rise .7s cubic-bezier(.2,.8,.2,1) both;
   }
-
-  @keyframes rise{
-    from{opacity:0;transform:translateY(18px);}
-    to{opacity:1;transform:none;}
-  }
+  @keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
 
   /* 装修中标签 */
   .tag{
@@ -114,23 +103,22 @@
     gap:8px;
     padding:7px 16px;
     border-radius:999px;
-    border:1px solid rgba(255,247,0,.35);
-    background:rgba(255,247,0,.10);
-    color:#ffef7a;
+    border:1px solid var(--line);
+    background:var(--soft);
+    color:var(--muted);
     font-size:13px;
     letter-spacing:.06em;
   }
   .tag::before{
     content:"";
     width:8px;height:8px;border-radius:50%;
-    background:var(--yellow);
-    box-shadow:0 0 0 0 rgba(255,247,0,.6);
+    background:var(--ink);
     animation:pulse 1.8s ease-out infinite;
   }
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(255,247,0,.55);}
-    70%{box-shadow:0 0 0 10px rgba(255,247,0,0);}
-    100%{box-shadow:0 0 0 0 rgba(255,247,0,0);}
+    0%{box-shadow:0 0 0 0 rgba(17,17,17,.28);}
+    70%{box-shadow:0 0 0 10px rgba(17,17,17,0);}
+    100%{box-shadow:0 0 0 0 rgba(17,17,17,0);}
   }
 
   h1{
@@ -147,7 +135,7 @@
     font-size:clamp(34px, 9vw, 60px);
     font-weight:800;
     line-height:1.15;
-    background:linear-gradient(120deg, #ffffff 8%, var(--accent) 48%, var(--yellow) 92%);
+    background:linear-gradient(120deg, #111111 8%, #4b5563 50%, #9ca3af 92%);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
@@ -159,28 +147,8 @@
     max-width:30em;
     font-size:clamp(15px, 2.6vw, 17px);
     line-height:1.9;
-    color:#c3dedc;
+    color:#4b5563;
   }
-
-  /* 主站按钮 */
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    margin-top:32px;
-    padding:15px 40px;
-    border-radius:999px;
-    font-size:17px;
-    font-weight:700;
-    text-decoration:none;
-    color:#04231f;
-    background:linear-gradient(135deg, #4ad8cc, #23a89b);
-    box-shadow:0 12px 32px rgba(57,197,187,.34);
-    transition:transform .18s ease, box-shadow .22s ease, filter .18s ease;
-  }
-  .btn:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(57,197,187,.5);filter:brightness(1.05);}
-  .btn:active{transform:translateY(-1px);}
-  .btn svg{width:17px;height:17px;}
 
   /* 按钮行：主站 + 术力口竞答 */
   .btn-row{
@@ -191,20 +159,34 @@
     gap:14px;
     margin-top:32px;
   }
-  .btn-row .btn{margin-top:0;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 40px;
+    border-radius:999px;
+    font-size:17px;
+    font-weight:700;
+    text-decoration:none;
+    color:#ffffff;
+    background:var(--ink);
+    box-shadow:0 10px 26px rgba(0,0,0,.16);
+    transition:transform .18s ease, box-shadow .22s ease, background .18s ease;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.22);background:#000;}
+  .btn:active{transform:translateY(-1px);}
+  .btn svg{width:17px;height:17px;}
 
-  /* 次要按钮（描边款） */
   .btn.ghost{
-    color:var(--accent);
-    background:transparent;
+    color:var(--ink);
+    background:#ffffff;
     border:1px solid var(--line);
     box-shadow:none;
   }
   .btn.ghost:hover{
-    filter:none;
-    border-color:rgba(57,197,187,.65);
-    background:rgba(57,197,187,.10);
-    box-shadow:0 12px 30px rgba(57,197,187,.18);
+    background:var(--soft);
+    border-color:#d1d5db;
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
   }
 
   /* 施工进度条 */
@@ -213,7 +195,7 @@
     width:min(340px, 100%);
     height:8px;
     border-radius:999px;
-    background:rgba(255,255,255,.07);
+    background:var(--soft);
     overflow:hidden;
     position:relative;
   }
@@ -222,7 +204,7 @@
     position:absolute;
     inset:0;
     border-radius:999px;
-    background:repeating-linear-gradient(45deg, rgba(57,197,187,.95) 0 12px, rgba(57,197,187,.45) 12px 24px);
+    background:repeating-linear-gradient(45deg, rgba(17,17,17,.85) 0 12px, rgba(17,17,17,.35) 12px 24px);
     background-size:34px 34px;
     animation:move 1.1s linear infinite;
   }
@@ -237,11 +219,9 @@
     letter-spacing:.12em;
   }
 
-  /* 背景音乐按钮 */
-  .music-btn{
+  /* ===== 悬浮按钮通用（右上角切换 / 右下角音乐） ===== */
+  .float-btn{
     position:fixed;
-    right:22px;
-    bottom:22px;
     z-index:9;
     width:52px;
     height:52px;
@@ -251,65 +231,73 @@
     border:1px solid var(--line);
     border-radius:50%;
     cursor:pointer;
-    color:var(--accent);
-    background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    box-shadow:0 10px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1);
-    transition:transform .18s ease, border-color .2s ease, color .2s ease;
+    color:var(--ink);
+    background:#ffffff;
+    box-shadow:0 8px 24px rgba(0,0,0,.10);
+    transition:transform .18s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
   }
-  .music-btn:hover{transform:scale(1.07);border-color:rgba(57,197,187,.55);}
-  .music-btn:active{transform:scale(.96);}
-  .music-btn svg{width:24px;height:24px;}
+  .float-btn:hover{transform:scale(1.07);box-shadow:0 12px 30px rgba(0,0,0,.16);}
+  .float-btn:active{transform:scale(.95);}
+  .float-btn svg{width:23px;height:23px;}
 
-  /* 播放时唱片旋转 */
-  .music-btn.playing .disc{animation:spin 3.2s linear infinite;}
+  /* 右上角：切换新旧版 */
+  .switch-btn{right:22px;top:22px;}
+
+  /* 右下角：背景音乐 */
+  .music-btn{right:22px;bottom:22px;}
+
   .music-btn.playing{
-    color:#04231f;
-    border-color:transparent;
-    background:linear-gradient(135deg, #4ad8cc, #23a89b);
-    box-shadow:0 10px 30px rgba(57,197,187,.42);
+    color:#ffffff;
+    background:var(--ink);
+    border-color:var(--ink);
+    box-shadow:0 10px 28px rgba(0,0,0,.26);
   }
+  .music-btn.playing .disc{animation:spin 3.2s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* 暂停时隐藏音符上的斜杠 */
   .music-btn .slash{display:block;}
   .music-btn.playing .slash{display:none;}
 
-  /* 播放时的声波条 */
-  .waves{display:none;}
-  .music-btn.playing .waves{display:block;position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(57,197,187,.45);animation:ripple 2s ease-out infinite;}
+  .music-btn .waves{display:none;}
+  .music-btn.playing .waves{
+    display:block;
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    border:1px solid rgba(17,17,17,.35);
+    animation:ripple 2s ease-out infinite;
+  }
   .music-btn.playing .waves:nth-of-type(2){animation-delay:.7s;}
   @keyframes ripple{
-    0%{transform:scale(1);opacity:.7;}
+    0%{transform:scale(1);opacity:.6;}
     100%{transform:scale(1.45);opacity:0;}
   }
 
-  /* 首次点击提示 */
-  .music-tip{
+  /* 悬浮提示气泡 */
+  .tip{
     position:fixed;
-    right:84px;
-    bottom:36px;
     z-index:9;
     padding:8px 14px;
     border-radius:999px;
     border:1px solid var(--line);
-    background:rgba(8,23,28,.85);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    color:#c3dedc;
+    background:#ffffff;
+    box-shadow:0 6px 18px rgba(0,0,0,.10);
+    color:#4b5563;
     font-size:12.5px;
     white-space:nowrap;
     opacity:0;
-    transform:translateX(8px);
     pointer-events:none;
     transition:opacity .3s ease, transform .3s ease;
   }
-  .music-tip.show{opacity:1;transform:none;}
+  .tip.show{opacity:1;}
 
-  @media (max-width:420px){
-    .music-tip{right:auto;left:20px;bottom:86px;}
-  }
+  /* 音乐提示：按钮左侧 */
+  .music-tip{right:84px;bottom:36px;transform:translateX(8px);}
+  .music-tip.show{transform:none;}
+
+  /* 切换提示：按钮下方 */
+  .switch-tip{right:22px;top:82px;transform:translateY(-8px);}
+  .switch-tip.show{transform:none;}
 
   /* 页脚 */
   footer{
@@ -322,11 +310,13 @@
   }
   .icp{display:block;line-height:0;}
   .icp svg{display:block;}
-  .copyright{font-size:12px;color:rgba(143,177,176,.75);}
+  .copyright{font-size:12px;color:rgba(107,114,128,.9);}
 
-  @media (max-width:420px){
+  @media (max-width:430px){
     .btn{width:100%;justify-content:center;}
     .btn-row{flex-direction:column;gap:12px;align-items:stretch;}
+    .music-tip{right:auto;left:20px;bottom:86px;transform:translateY(8px);}
+    .switch-tip{right:22px;left:auto;}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -339,6 +329,17 @@
   <div class="floaters" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span>
   </div>
+
+  <!-- 右上角：切换新版 / 旧版 -->
+  <button class="float-btn switch-btn" id="switchBtn" type="button" aria-label="切换新版或旧版" title="切换新版 / 旧版">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M16 3l4 4-4 4"/>
+      <path d="M20 7H4"/>
+      <path d="M8 21l-4-4 4-4"/>
+      <path d="M4 17h16"/>
+    </svg>
+  </button>
+  <div class="tip switch-tip" id="switchTip"></div>
 
   <main class="card">
     <div class="tag">正在装修中</div>
@@ -371,7 +372,7 @@
   <!-- 背景音乐：请将 mp3 与本文件放在同一目录 -->
   <audio id="bgm" src="月が綺麗ねと言われたい！-柿崎ユウ_.mp3" loop preload="auto"></audio>
 
-  <button class="music-btn" id="musicBtn" type="button" aria-label="播放/暂停背景音乐" title="播放/暂停背景音乐">
+  <button class="float-btn music-btn" id="musicBtn" type="button" aria-label="播放/暂停背景音乐" title="播放/暂停背景音乐">
     <span class="waves"></span>
     <span class="waves"></span>
     <svg class="disc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -381,7 +382,7 @@
       <line class="slash" x1="3" y1="3" x2="21" y2="21"/>
     </svg>
   </button>
-  <div class="music-tip" id="musicTip">点击页面任意处即可播放音乐 ♪</div>
+  <div class="tip music-tip" id="musicTip">点击页面任意处即可播放音乐 ♪</div>
 
   <footer>
     <span class="icp">
@@ -409,11 +410,55 @@
   </footer>
 
 <script>
+/* ================= 新版 / 旧版 切换 ================= */
+(function () {
+  var NEW_URL = 'https://ordm.de5.net/';
+  var OLD_URL = 'https://ordream.pages.dev/';
+  var btn = document.getElementById('switchBtn');
+  var tip = document.getElementById('switchTip');
+  var tipTimer = null;
+
+  var host = location.hostname;
+  var isNew = (host === 'ordm.de5.net');
+  var isOld = (host === 'ordream.pages.dev');
+
+  // 目标：新版→旧版；旧版→新版；其他→新版
+  var target = isNew ? OLD_URL : NEW_URL;
+  var label  = isNew ? '旧版' : '新版';
+
+  btn.title = '切换到' + label;
+  function showTip(text){
+    tip.textContent = text;
+    tip.classList.add('show');
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(function(){ tip.classList.remove('show'); }, 2600);
+  }
+  btn.addEventListener('mouseenter', function () {
+    showTip((isNew ? '当前：新版' : (isOld ? '当前：旧版' : '当前：其他域名')) + ' → 去' + label);
+  });
+
+  btn.addEventListener('click', function () {
+    try {
+      if (isNew) {
+        // 去旧版：标记停留，避免被统一跳转弹回
+        sessionStorage.setItem('ordm_stay', '1');
+        location.href = OLD_URL + '?stay=1';
+      } else {
+        sessionStorage.removeItem('ordm_stay');
+        location.href = NEW_URL;
+      }
+    } catch (e) {
+      location.href = target;
+    }
+  });
+})();
+
+/* ================= 背景音乐 ================= */
 (function () {
   var audio    = document.getElementById('bgm');
   var btn      = document.getElementById('musicBtn');
   var tip      = document.getElementById('musicTip');
-  var started  = false;   // 音乐是否已成功启动过
+  var started  = false;
   var tipTimer = null;
 
   function syncUI() {
@@ -429,6 +474,12 @@
     }
   }
 
+  function removeOnce() {
+    document.removeEventListener('click', onFirstInteract);
+    document.removeEventListener('touchstart', onFirstInteract);
+    document.removeEventListener('keydown', onFirstInteract);
+  }
+
   function tryPlay() {
     audio.volume = 0.6;
     var p = audio.play();
@@ -439,7 +490,6 @@
         tip.classList.remove('show');
         removeOnce();
       }).catch(function () {
-        // 浏览器拦截了自动播放，等用户首次交互再启动
         showTip('点击页面任意处即可播放音乐 ♪');
       });
     } else {
@@ -449,21 +499,15 @@
     }
   }
 
-  // 首次交互后自动开始播放
   function onFirstInteract() {
     if (started) return;
     tryPlay();
   }
-  function removeOnce() {
-    document.removeEventListener('click', onFirstInteract);
-    document.removeEventListener('touchstart', onFirstInteract);
-    document.removeEventListener('keydown', onFirstInteract);
-  }
+
   document.addEventListener('click', onFirstInteract);
   document.addEventListener('touchstart', onFirstInteract);
   document.addEventListener('keydown', onFirstInteract);
 
-  // 按钮：手动切换播放/暂停
   btn.addEventListener('click', function (e) {
     e.stopPropagation();
     if (audio.paused) {
@@ -483,12 +527,10 @@
     }
   });
 
-  // 自动播放被拦截时，鼠标移到按钮上就提示
   btn.addEventListener('mouseenter', function () {
     if (!started) showTip('点击开启背景音乐 ♪');
   });
 
-  // 音频加载失败（文件名不对 / 文件缺失）时给出提示
   audio.addEventListener('error', function () {
     showTip('未找到音乐文件：请确认 mp3 与本网页在同一目录');
   });
@@ -496,7 +538,6 @@
   audio.addEventListener('play', syncUI);
   audio.addEventListener('pause', syncUI);
 
-  // 页面加载后尝试自动播放（多数浏览器会拦截，交给上面的首次交互兜底）
   window.addEventListener('load', tryPlay);
 })();
 </script>
