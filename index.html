@@ -6,6 +6,17 @@
 <meta name="description" content="ORDM术力口 —— 网站正在装修中，欢迎前往主站。" />
 <title>欢迎光临 ORDM术力口</title>
 
+<!-- 主题判定：新版域名 ordm.de5.net 使用白色主题，其余（旧版 / 其他）保持原深色主题 -->
+<script>
+(function () {
+  try {
+    if (location.hostname === 'ordm.de5.net') {
+      document.documentElement.classList.add('theme-new');
+    }
+  } catch (e) {}
+})();
+</script>
+
 <!-- 域名统一：非 ordm.de5.net 访问时跳转至主域名（切换旧版时例外） -->
 <script>
 (function () {
@@ -19,15 +30,132 @@
 </script>
 
 <style>
+  /* ===== 默认主题（旧版 / 其他域名）：原深青黑配色 ===== */
   :root{
+    --bg:#08171c;
+    --glow1:rgba(57,197,187,.18);
+    --glow2:rgba(255,247,0,.10);
+    --grid:rgba(255,255,255,.035);
+
+    --text:#e9f7f6;
+    --muted:#8fb1b0;
+    --accent:#39c5bb;
+    --yellow:#fff700;
+    --line:rgba(57,197,187,.22);
+
+    --card-bg:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    --card-shadow:0 24px 70px rgba(0,0,0,.45);
+    --card-inset:inset 0 1px 0 rgba(255,255,255,.08);
+
+    --floater-bg:linear-gradient(135deg, rgba(57,197,187,.20), rgba(57,197,187,.02));
+    --floater-border:var(--line);
+    --floater-bg2:linear-gradient(135deg, rgba(255,247,0,.35), rgba(255,247,0,.02));
+    --floater-border2:rgba(255,247,0,.3);
+
+    --tag-color:#ffef7a;
+    --tag-bg:rgba(255,247,0,.10);
+    --tag-border:rgba(255,247,0,.35);
+    --tag-dot:#fff700;
+    --pulse:rgba(255,247,0,.55);
+
+    --name-grad:linear-gradient(120deg, #ffffff 8%, #39c5bb 48%, #fff700 92%);
+    --desc-color:#c3dedc;
+
+    --btn-bg:linear-gradient(135deg, #4ad8cc, #23a89b);
+    --btn-color:#04231f;
+    --btn-shadow:0 12px 32px rgba(57,197,187,.34);
+    --btn-shadow-hover:0 18px 44px rgba(57,197,187,.5);
+    --btn-hover-bg:#333;
+    --ghost-color:#39c5bb;
+    --ghost-hover-bg:rgba(57,197,187,.10);
+    --ghost-hover-border:rgba(57,197,187,.65);
+
+    --bar-track:rgba(255,255,255,.08);
+    --bar-stripe1:rgba(57,197,187,.95);
+    --bar-stripe2:rgba(57,197,187,.45);
+
+    --fbtn-bg:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    --fbtn-color:#39c5bb;
+    --fbtn-border:var(--line);
+    --fbtn-shadow:0 10px 30px rgba(0,0,0,.4);
+    --fbtn-shadow-hover:0 14px 34px rgba(0,0,0,.5);
+    --fbtn-hover-border:rgba(57,197,187,.55);
+    --wave-border:rgba(57,197,187,.45);
+    --play-bg:linear-gradient(135deg, #4ad8cc, #23a89b);
+    --play-color:#04231f;
+    --play-shadow:0 10px 30px rgba(57,197,187,.42);
+
+    --tip-bg:rgba(8,23,28,.85);
+    --tip-color:#c3dedc;
+    --tip-border:var(--line);
+    --tip-shadow:0 6px 18px rgba(0,0,0,.3);
+
+    --copy-color:rgba(143,177,176,.75);
+  }
+
+  /* ===== 新版主题（ordm.de5.net）：纯白 ===== */
+  html.theme-new{
     --bg:#ffffff;
-    --ink:#111111;
+    --glow1:rgba(0,0,0,.045);
+    --glow2:rgba(0,0,0,.03);
+    --grid:rgba(0,0,0,.035);
+
     --text:#1f2328;
     --muted:#6b7280;
-    --line:#e5e7eb;
-    --soft:#f5f5f7;
     --accent:#111111;
+    --yellow:#111111;
+    --line:#e5e7eb;
+
+    --card-bg:#ffffff;
+    --card-shadow:0 18px 50px rgba(0,0,0,.07);
+    --card-inset:inset 0 1px 0 rgba(0,0,0,.02);
+
+    --floater-bg:linear-gradient(135deg, rgba(0,0,0,.05), rgba(0,0,0,.01));
+    --floater-border:#e5e7eb;
+    --floater-bg2:linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,.01));
+    --floater-border2:#e5e7eb;
+
+    --tag-color:#6b7280;
+    --tag-bg:#f5f5f7;
+    --tag-border:#e5e7eb;
+    --tag-dot:#111111;
+    --pulse:rgba(17,17,17,.25);
+
+    --name-grad:linear-gradient(120deg, #111111 8%, #4b5563 50%, #9ca3af 92%);
+    --desc-color:#4b5563;
+
+    --btn-bg:#111111;
+    --btn-color:#ffffff;
+    --btn-shadow:0 10px 26px rgba(0,0,0,.16);
+    --btn-shadow-hover:0 16px 36px rgba(0,0,0,.22);
+    --btn-hover-bg:#000000;
+    --ghost-color:#111111;
+    --ghost-hover-bg:#f5f5f7;
+    --ghost-hover-border:#d1d5db;
+
+    --bar-track:#f5f5f7;
+    --bar-stripe1:rgba(17,17,17,.85);
+    --bar-stripe2:rgba(17,17,17,.35);
+
+    --fbtn-bg:#ffffff;
+    --fbtn-color:#111111;
+    --fbtn-border:#e5e7eb;
+    --fbtn-shadow:0 8px 24px rgba(0,0,0,.10);
+    --fbtn-shadow-hover:0 12px 30px rgba(0,0,0,.16);
+    --fbtn-hover-border:#c9ced6;
+    --wave-border:rgba(17,17,17,.35);
+    --play-bg:#111111;
+    --play-color:#ffffff;
+    --play-shadow:0 10px 28px rgba(0,0,0,.26);
+
+    --tip-bg:#ffffff;
+    --tip-color:#4b5563;
+    --tip-border:#e5e7eb;
+    --tip-shadow:0 6px 18px rgba(0,0,0,.10);
+
+    --copy-color:rgba(107,114,128,.9);
   }
+
   *{box-sizing:border-box;}
   html,body{height:100%;}
   body{
@@ -40,20 +168,23 @@
     gap:34px;
     padding:64px 20px 36px;
     color:var(--text);
-    background:var(--bg);
+    background:
+      radial-gradient(900px 620px at 12% 8%, var(--glow1), transparent 62%),
+      radial-gradient(760px 520px at 88% 92%, var(--glow2), transparent 62%),
+      var(--bg);
     font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
     position:relative;
     overflow-x:hidden;
   }
 
-  /* 背景网格（浅色） */
+  /* 背景网格 */
   body::before{
     content:"";
     position:fixed;
     inset:0;
     background-image:
-      linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
     background-size:46px 46px;
     mask-image:radial-gradient(70% 60% at 50% 45%, #000 40%, transparent 100%);
     -webkit-mask-image:radial-gradient(70% 60% at 50% 45%, #000 40%, transparent 100%);
@@ -61,23 +192,26 @@
     z-index:0;
   }
 
-  /* 漂浮装饰方块（浅色） */
+  /* 漂浮装饰方块 */
   .floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
   .floaters span{
     position:absolute;
     border-radius:10px;
-    border:1px solid var(--line);
-    background:linear-gradient(135deg, rgba(0,0,0,.05), rgba(0,0,0,.01));
+    border:1px solid var(--floater-border);
+    background:var(--floater-bg);
     animation:drift 16s ease-in-out infinite;
   }
   .floaters span:nth-child(1){width:76px;height:76px;left:6%;top:16%;animation-duration:18s;}
   .floaters span:nth-child(2){width:44px;height:44px;left:88%;top:22%;animation-duration:14s;animation-delay:-4s;}
   .floaters span:nth-child(3){width:100px;height:100px;left:78%;bottom:12%;animation-duration:21s;animation-delay:-8s;}
   .floaters span:nth-child(4){width:34px;height:34px;left:14%;bottom:18%;animation-duration:12s;animation-delay:-2s;}
-  .floaters span:nth-child(5){width:22px;height:22px;left:48%;top:8%;animation-duration:10s;animation-delay:-6s;}
+  .floaters span:nth-child(5){
+    width:22px;height:22px;left:48%;top:8%;animation-duration:10s;animation-delay:-6s;
+    background:var(--floater-bg2);border-color:var(--floater-border2);
+  }
 
   @keyframes drift{
-    0%,100%{transform:translateY(0) rotate(0deg);opacity:.5;}
+    0%,100%{transform:translateY(0) rotate(0deg);opacity:.55;}
     50%{transform:translateY(-22px) rotate(14deg);opacity:1;}
   }
 
@@ -90,8 +224,10 @@
     text-align:center;
     border:1px solid var(--line);
     border-radius:24px;
-    background:#ffffff;
-    box-shadow:0 18px 50px rgba(0,0,0,.07);
+    background:var(--card-bg);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:var(--card-shadow), var(--card-inset);
     animation:rise .7s cubic-bezier(.2,.8,.2,1) both;
   }
   @keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
@@ -103,22 +239,22 @@
     gap:8px;
     padding:7px 16px;
     border-radius:999px;
-    border:1px solid var(--line);
-    background:var(--soft);
-    color:var(--muted);
+    border:1px solid var(--tag-border);
+    background:var(--tag-bg);
+    color:var(--tag-color);
     font-size:13px;
     letter-spacing:.06em;
   }
   .tag::before{
     content:"";
     width:8px;height:8px;border-radius:50%;
-    background:var(--ink);
+    background:var(--tag-dot);
     animation:pulse 1.8s ease-out infinite;
   }
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(17,17,17,.28);}
-    70%{box-shadow:0 0 0 10px rgba(17,17,17,0);}
-    100%{box-shadow:0 0 0 0 rgba(17,17,17,0);}
+    0%{box-shadow:0 0 0 0 var(--pulse);}
+    70%{box-shadow:0 0 0 10px rgba(0,0,0,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,0,0,0);}
   }
 
   h1{
@@ -135,7 +271,7 @@
     font-size:clamp(34px, 9vw, 60px);
     font-weight:800;
     line-height:1.15;
-    background:linear-gradient(120deg, #111111 8%, #4b5563 50%, #9ca3af 92%);
+    background:var(--name-grad);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
@@ -147,7 +283,7 @@
     max-width:30em;
     font-size:clamp(15px, 2.6vw, 17px);
     line-height:1.9;
-    color:#4b5563;
+    color:var(--desc-color);
   }
 
   /* 按钮行：主站 + 术力口竞答 */
@@ -168,25 +304,27 @@
     font-size:17px;
     font-weight:700;
     text-decoration:none;
-    color:#ffffff;
-    background:var(--ink);
-    box-shadow:0 10px 26px rgba(0,0,0,.16);
-    transition:transform .18s ease, box-shadow .22s ease, background .18s ease;
+    color:var(--btn-color);
+    background:var(--btn-bg);
+    box-shadow:var(--btn-shadow);
+    transition:transform .18s ease, box-shadow .22s ease, filter .18s ease, background .18s ease;
   }
-  .btn:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.22);background:#000;}
+  .btn:hover{transform:translateY(-3px);box-shadow:var(--btn-shadow-hover);background:var(--btn-hover-bg);}
   .btn:active{transform:translateY(-1px);}
   .btn svg{width:17px;height:17px;}
 
+  /* 次要按钮（描边款） */
   .btn.ghost{
-    color:var(--ink);
-    background:#ffffff;
+    color:var(--ghost-color);
+    background:transparent;
     border:1px solid var(--line);
     box-shadow:none;
   }
   .btn.ghost:hover{
-    background:var(--soft);
-    border-color:#d1d5db;
-    box-shadow:0 10px 24px rgba(0,0,0,.08);
+    filter:none;
+    background:var(--ghost-hover-bg);
+    border-color:var(--ghost-hover-border);
+    box-shadow:var(--btn-shadow);
   }
 
   /* 施工进度条 */
@@ -195,7 +333,7 @@
     width:min(340px, 100%);
     height:8px;
     border-radius:999px;
-    background:var(--soft);
+    background:var(--bar-track);
     overflow:hidden;
     position:relative;
   }
@@ -204,7 +342,7 @@
     position:absolute;
     inset:0;
     border-radius:999px;
-    background:repeating-linear-gradient(45deg, rgba(17,17,17,.85) 0 12px, rgba(17,17,17,.35) 12px 24px);
+    background:repeating-linear-gradient(45deg, var(--bar-stripe1) 0 12px, var(--bar-stripe2) 12px 24px);
     background-size:34px 34px;
     animation:move 1.1s linear infinite;
   }
@@ -219,7 +357,7 @@
     letter-spacing:.12em;
   }
 
-  /* ===== 悬浮按钮通用（右上角切换 / 右下角音乐） ===== */
+  /* ===== 悬浮圆形按钮：右上角切换版 / 右下角音乐 ===== */
   .float-btn{
     position:fixed;
     z-index:9;
@@ -228,29 +366,29 @@
     display:grid;
     place-items:center;
     padding:0;
-    border:1px solid var(--line);
+    border:1px solid var(--fbtn-border);
     border-radius:50%;
     cursor:pointer;
-    color:var(--ink);
-    background:#ffffff;
-    box-shadow:0 8px 24px rgba(0,0,0,.10);
-    transition:transform .18s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+    color:var(--fbtn-color);
+    background:var(--fbtn-bg);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:var(--fbtn-shadow);
+    transition:transform .18s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
   }
-  .float-btn:hover{transform:scale(1.07);box-shadow:0 12px 30px rgba(0,0,0,.16);}
+  .float-btn:hover{transform:scale(1.07);box-shadow:var(--fbtn-shadow-hover);border-color:var(--fbtn-hover-border);}
   .float-btn:active{transform:scale(.95);}
   .float-btn svg{width:23px;height:23px;}
 
-  /* 右上角：切换新旧版 */
   .switch-btn{right:22px;top:22px;}
-
-  /* 右下角：背景音乐 */
   .music-btn{right:22px;bottom:22px;}
 
+  /* 播放中：唱片旋转 + 反色 */
   .music-btn.playing{
-    color:#ffffff;
-    background:var(--ink);
-    border-color:var(--ink);
-    box-shadow:0 10px 28px rgba(0,0,0,.26);
+    color:var(--play-color);
+    border-color:transparent;
+    background:var(--play-bg);
+    box-shadow:var(--play-shadow);
   }
   .music-btn.playing .disc{animation:spin 3.2s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
@@ -264,7 +402,7 @@
     position:absolute;
     inset:-6px;
     border-radius:50%;
-    border:1px solid rgba(17,17,17,.35);
+    border:1px solid var(--wave-border);
     animation:ripple 2s ease-out infinite;
   }
   .music-btn.playing .waves:nth-of-type(2){animation-delay:.7s;}
@@ -273,29 +411,29 @@
     100%{transform:scale(1.45);opacity:0;}
   }
 
-  /* 悬浮提示气泡 */
+  /* 提示气泡 */
   .tip{
     position:fixed;
     z-index:9;
     padding:8px 14px;
     border-radius:999px;
-    border:1px solid var(--line);
-    background:#ffffff;
-    box-shadow:0 6px 18px rgba(0,0,0,.10);
-    color:#4b5563;
+    border:1px solid var(--tip-border);
+    background:var(--tip-bg);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    color:var(--tip-color);
     font-size:12.5px;
     white-space:nowrap;
+    box-shadow:var(--tip-shadow);
     opacity:0;
     pointer-events:none;
     transition:opacity .3s ease, transform .3s ease;
   }
   .tip.show{opacity:1;}
 
-  /* 音乐提示：按钮左侧 */
   .music-tip{right:84px;bottom:36px;transform:translateX(8px);}
   .music-tip.show{transform:none;}
 
-  /* 切换提示：按钮下方 */
   .switch-tip{right:22px;top:82px;transform:translateY(-8px);}
   .switch-tip.show{transform:none;}
 
@@ -310,12 +448,13 @@
   }
   .icp{display:block;line-height:0;}
   .icp svg{display:block;}
-  .copyright{font-size:12px;color:rgba(107,114,128,.9);}
+  .copyright{font-size:12px;color:var(--copy-color);}
 
   @media (max-width:430px){
     .btn{width:100%;justify-content:center;}
     .btn-row{flex-direction:column;gap:12px;align-items:stretch;}
     .music-tip{right:auto;left:20px;bottom:86px;transform:translateY(8px);}
+    .music-tip.show{transform:none;}
     .switch-tip{right:22px;left:auto;}
   }
 
@@ -423,8 +562,7 @@
   var isOld = (host === 'ordream.pages.dev');
 
   // 目标：新版→旧版；旧版→新版；其他→新版
-  var target = isNew ? OLD_URL : NEW_URL;
-  var label  = isNew ? '旧版' : '新版';
+  var label = isNew ? '旧版' : '新版';
 
   btn.title = '切换到' + label;
   function showTip(text){
@@ -440,7 +578,7 @@
   btn.addEventListener('click', function () {
     try {
       if (isNew) {
-        // 去旧版：标记停留，避免被统一跳转弹回
+        // 去旧版：标记停留，避免被域名统一跳转弹回
         sessionStorage.setItem('ordm_stay', '1');
         location.href = OLD_URL + '?stay=1';
       } else {
@@ -448,7 +586,7 @@
         location.href = NEW_URL;
       }
     } catch (e) {
-      location.href = target;
+      location.href = isNew ? OLD_URL : NEW_URL;
     }
   });
 })();
