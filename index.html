@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="ORDM术力口 —— 网站正在装修中，欢迎前往主站。" />
 <title>欢迎光临 ORDM术力口</title>
+
+<!-- 域名统一：非 ordm.de5.net 访问时跳转至主域名 -->
+<script>
+(function () {
+  try {
+    if (location.hostname !== 'ordm.de5.net') {
+      location.replace('https://ordm.de5.net/');
+    }
+  } catch (e) {}
+})();
+</script>
+
 <style>
   :root{
     --bg:#08171c;
